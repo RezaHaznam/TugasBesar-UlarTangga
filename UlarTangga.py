@@ -320,3 +320,81 @@ class Snake():
             print("25 turun ke 17")
             print("50 turun ke 28")
             print("45 turun ke 7")
+
+import random
+class Main:
+    if __name__ == '__main__':
+        board = Board()
+        dice = Dice()
+        defineP2 = ""
+        rules = random.randint(1,5)
+        print("Pilih lawan: p untuk Player atau c untuk CPU")
+        choice = input()
+        if choice=='p':
+            defineP2 = "Player 2"
+        else:
+            defineP2 = "CPU"
+            
+        player1 = Player("Red")
+        print("Player 1 : ", player1.getWarna())
+        player2 = Player("Blue")
+        print("Player 2 : ", player2.getWarna())
+        print("------------------------------------------")
+        board.setPlayer(player1)
+        board.setPosition(0)
+        board.setPlayer(player2)
+        board.setPosition(0)
+        ladder = Ladder(player1)
+        ladder.printRules(rules)
+        print("------------------------------------------")
+        snake = Snake(player1)
+        snake.printRules(rules)
+        print("------------------------------------------")
+        b = board.player
+        c = b.posisi
+        while b != 100:
+            board.setPlayer(player1)
+            board.setMataDadu(dice)
+            print("Player 1 turn: y untuk ya / n untuk tidak?")
+            answer = input()
+            if answer == 'y':
+                print("Player 1 roll: ", board.getMataDadu())
+                board.setPosition(board.getMataDadu())
+                snake = Snake(player1)
+                snake.setPosition(rules)
+                ladder = Ladder(player1)
+                ladder.setPosition(rules)
+                print("Player 1 position: ", board.player.posisi)
+                    
+                if(board.player.posisi == 100):
+                    print("Player ", board.player.warna, " win")
+                    break
+            else:
+                print("Permainan dihentikan karena Player 1 menyerah!")
+                break
+                        
+            print(' ') #System.out.println
+            board.setPlayer(player2)
+            board.setMataDadu(dice)
+            input2 = ""
+            if choice == 'c':
+                input2 = 'y'
+            else:
+                print(defineP2 + " turn: y untuk ya / n untuk tidak?")
+                input2 = input();
+                
+            if input2 == 'y':
+                print(defineP2, "roll: ", board.getMataDadu())
+                board.setPosition(board.getMataDadu())
+                snake = Snake(player2)
+                snake.setPosition(rules)
+                ladder = Ladder(player2)
+                ladder.setPosition(rules)
+                print(defineP2, "position: ", board.player.posisi)
+                print("------------------------------------------")
+                if(board.player.posisi == 100):
+                    print("Player ", board.player.warna, " menang")
+                    break
+            else:
+                print("Permainan dihentikan karena Player 2 menyerah!")
+                break
